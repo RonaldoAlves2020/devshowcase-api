@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevShowcase</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 30px 35px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 45px;
+        }
+
+        header p {
+            margin-top: 8px;
+            margin-bottom: 0;
+            font-size: 22px;
+            color: #e5e7eb;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 40px 25px;
+        }
+
+        .barra {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .barra input {
+            flex: 1;
+            min-width: 250px;
+            padding: 17px 20px;
+            font-size: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 15px 24px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        .btn-buscar {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-ranking {
+            background: #111827;
+            color: white;
+        }
+
+        .btn-novo {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .btn-perfil {
+            background: #0891b2;
+            color: white;
+        }
+
+        #tituloSecao {
+            font-size: 34px;
+            margin-bottom: 28px;
+        }
+
+        #formProjeto,
+        #formPerfil {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        #formProjeto h2,
+        #formPerfil h2 {
+            margin-top: 0;
+            font-size: 32px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .campo input,
+        .campo textarea,
+        .campo select {
+            width: 100%;
+            padding: 15px;
+            font-size: 17px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            outline: none;
+            background: white;
+        }
+
+        .campo textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .tecnologias-box {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .tecnologia-check {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .tecnologia-check input {
+            width: auto;
+            margin-right: 6px;
+        }
+
+        .form-botoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-salvar {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #dc2626;
+            color: white;
+        }
+
+        #mensagemProjeto,
+        #mensagemPerfil {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        #listaProjetos {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(400px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 17px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .descricao {
+            color: #4b5563;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .tag {
+            background: #e5e7eb;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+        .desenvolvedor {
+            background: #ecfeff;
+            border-left: 5px solid #0891b2;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 18px 0;
+            font-size: 17px;
+        }
+
+        .desenvolvedor strong {
+            color: #0e7490;
+        }
+
+        .votos {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-votar {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-votado {
+            background: #9ca3af;
+            color: white;
+            cursor: default;
+        }
+
+        .btn-github {
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            padding: 15px 24px;
+            border-radius: 10px;
+            font-size: 17px;
+            display: inline-block;
+        }
+
+        .avaliacao-area {
+            border-top: 1px solid #e5e7eb;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+
+        .avaliacao-area h4 {
+            font-size: 20px;
+            margin: 0 0 15px;
+        }
+
+        .estrelas {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .estrela {
+            font-size: 38px;
+            color: #cbd5e1;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .estrela.ativa {
+            color: #f59e0b;
+        }
+
+        .avaliacao-area textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        .btn-avaliar {
+            background: #2563eb;
+            color: white;
+            margin-top: 12px;
+        }
+
+        .mensagem-avaliacao {
+            color: #16a34a;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .avaliacoes-recebidas {
+            border-top: 1px solid #e5e7eb;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+
+        .avaliacoes-recebidas h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .resumo-avaliacao {
+            background: #fff7dd;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .media-estrelas {
+            color: #f59e0b;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .avaliacao-item {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .nota-avaliacao {
+            color: #f59e0b;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .comentario {
+            font-size: 17px;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .posicao {
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            color: #6b7280;
+            font-size: 18px;
+        }
+
+        @media(max-width: 700px) {
+
+            header h1 {
+                font-size: 34px;
+            }
+
+            #listaProjetos {
+                grid-template-columns: 1fr;
+            }
+
+            .barra {
+                flex-direction: column;
+            }
+
+            .barra button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>🚀 DevShowcase</h1>
+
+    <p>
+        Portfólio de projetos de desenvolvedores
+    </p>
+
+</header>
+
+
+<main class="container">
+
+    <div class="barra">
+
+        <input
+            id="pesquisa"
+            type="text"
+            placeholder="Pesquisar projeto..."
+        >
+
+        <button
+            class="btn-buscar"
+            onclick="buscarProjetos()"
+        >
+            🔎 Buscar
+        </button>
+
+        <button
+            class="btn-ranking"
+            onclick="mostrarRanking()"
+        >
+            🏆 Ranking
+        </button>
+
+        <button
+            class="btn-novo"
+            onclick="abrirFormulario()"
+        >
+            ➕ Novo Projeto
+        </button>
+
+        <button
+            class="btn-perfil"
+            onclick="abrirFormularioPerfil()"
+        >
+            👤 Cadastrar Desenvolvedor
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+         CADASTRAR DESENVOLVEDOR
+    =========================================== -->
+
+    <section id="formPerfil">
+
+        <h2>
+            👤 Cadastrar Desenvolvedor
+        </h2>
+
+        <div class="campo">
+
+            <label>Nome</label>
+
+            <input
+                id="nomePerfil"
+                type="text"
+                placeholder="Nome do desenvolvedor"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>E-mail</label>
+
+            <input
+                id="emailPerfil"
+                type="email"
+                placeholder="email@exemplo.com"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Biografia</label>
+
+            <textarea
+                id="bioPerfil"
+                placeholder="Fale um pouco sobre o desenvolvedor"
+            ></textarea>
+
+        </div>
+
+        <div class="campo">
+
+            <label>GitHub</label>
+
+            <input
+                id="githubPerfil"
+                type="url"
+                placeholder="https://github.com/usuario"
+            >
+
+        </div>
+
+        <div id="mensagemPerfil"></div>
+
+        <div class="form-botoes">
+
+            <button
+                class="btn-salvar"
+                onclick="cadastrarPerfil()"
+            >
+                💾 Cadastrar Perfil
+            </button>
+
+            <button
+                class="btn-cancelar"
+                onclick="fecharFormularioPerfil()"
+            >
+                ❌ Cancelar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         CADASTRAR PROJETO
+    =========================================== -->
+
+    <section id="formProjeto">
+
+        <h2>
+            ➕ Cadastrar Novo Projeto
+        </h2>
+
+        <div class="campo">
+
+            <label>Título</label>
+
+            <input
+                id="tituloProjeto"
+                type="text"
+                placeholder="Nome do projeto"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Descrição</label>
+
+            <textarea
+                id="descricaoProjeto"
+                placeholder="Descrição do projeto"
+            ></textarea>
+
+        </div>
+
+        <div class="campo">
+
+            <label>URL do GitHub</label>
+
+            <input
+                id="githubProjeto"
+                type="url"
+                placeholder="https://github.com/usuario/projeto"
+            >
+
+        </div>
+
+
+        <!-- NOVA SELEÇÃO DE DESENVOLVEDOR -->
+
+        <div class="campo">
+
+            <label>Desenvolvedor</label>
+
+            <select id="profileId">
+
+                <option value="">
+                    Selecione o desenvolvedor...
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Tecnologias</label>
+
+            <div
+                id="listaTecnologias"
+                class="tecnologias-box"
+            >
+                Carregando...
+            </div>
+
+        </div>
+
+
+        <div id="mensagemProjeto"></div>
+
+
+        <div class="form-botoes">
+
+            <button
+                class="btn-salvar"
+                onclick="cadastrarProjeto()"
+            >
+                💾 Cadastrar Projeto
+            </button>
+
+            <button
+                class="btn-cancelar"
+                onclick="fecharFormulario()"
+            >
+                ❌ Cancelar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <h2 id="tituloSecao">
+        Projetos
+    </h2>
+
+
+    <div id="listaProjetos">
+        Carregando projetos...
+    </div>
+
+</main>
+
+
+<footer>
+    DevShowcase API • FastAPI + Python
+</footer>
+
+
+<script>
+
+    /* ==========================================
+       CONFIGURAÇÃO
+    =========================================== */
+
+    const API = window.location.origin;
+
+    let projetosAtuais = [];
+
+    let notasSelecionadas = {};
+
+    let perfisCache = [];
+
+
+    /* ==========================================
+       ABRIR FORMULÁRIO DE PERFIL
+    =========================================== */
+
+    function abrirFormularioPerfil() {
+
+        document.getElementById(
+            "formProjeto"
+        ).style.display = "none";
+
+        document.getElementById(
+            "formPerfil"
+        ).style.display = "block";
+
+        document.getElementById(
+            "mensagemPerfil"
+        ).innerText = "";
+
+        document.getElementById(
+            "formPerfil"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+
+    function fecharFormularioPerfil() {
+
+        document.getElementById(
+            "formPerfil"
+        ).style.display = "none";
+    }
+
+
+    /* ==========================================
+       CADASTRAR DESENVOLVEDOR
+    =========================================== */
+
+    async function cadastrarPerfil() {
+
+        const nome =
+            document.getElementById(
+                "nomePerfil"
+            ).value.trim();
+
+        const email =
+            document.getElementById(
+                "emailPerfil"
+            ).value.trim();
+
+        const bio =
+            document.getElementById(
+                "bioPerfil"
+            ).value.trim();
+
+        const github =
+            document.getElementById(
+                "githubPerfil"
+            ).value.trim();
+
+        const mensagem =
+            document.getElementById(
+                "mensagemPerfil"
+            );
+
+
+        if (!nome) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "Informe o nome do desenvolvedor.";
+
+            return;
+        }
+
+
+        if (!email) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "Informe o e-mail.";
+
+            return;
+        }
+
+
+        const dados = {
+
+            name: nome,
+
+            email: email,
+
+            bio: bio || null,
+
+            github_url:
+                github || null
+        };
+
+
+        try {
+
+            mensagem.style.color =
+                "#374151";
+
+            mensagem.innerText =
+                "Cadastrando desenvolvedor...";
+
+
+            const resposta =
+                await fetch(
+                    `${API}/api/profiles`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(dados)
+                    }
+                );
+
+
+            if (!resposta.ok) {
+
+                let mensagemErro =
+                    "Erro ao cadastrar desenvolvedor.";
+
+                try {
+
+                    const erro =
+                        await resposta.json();
+
+                    if (
+                        typeof erro.detail ===
+                        "string"
+                    ) {
+
+                        mensagemErro =
+                            erro.detail;
+                    }
+
+                } catch (_) {}
+
+                throw new Error(
+                    mensagemErro
+                );
+            }
+
+
+            const perfil =
+                await resposta.json();
+
+
+            mensagem.style.color =
+                "#16a34a";
+
+            mensagem.innerText =
+                `✅ Desenvolvedor cadastrado com sucesso! ID: ${perfil.id}`;
+
+
+            /*
+                Atualiza automaticamente
+                a lista de desenvolvedores.
+            */
+
+            await carregarPerfis();
+
+
+            /*
+                Seleciona automaticamente
+                o desenvolvedor recém-criado.
+            */
+
+            document.getElementById(
+                "profileId"
+            ).value = String(
+                perfil.id
+            );
+
+
+            document.getElementById(
+                "nomePerfil"
+            ).value = "";
+
+            document.getElementById(
+                "emailPerfil"
+            ).value = "";
+
+            document.getElementById(
+                "bioPerfil"
+            ).value = "";
+
+            document.getElementById(
+                "githubPerfil"
+            ).value = "";
+
+        }
+
+        catch (erro) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "❌ " + erro.message;
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       ABRIR FORMULÁRIO DO PROJETO
+    =========================================== */
+
+    async function abrirFormulario() {
+
+        document.getElementById(
+            "formPerfil"
+        ).style.display = "none";
+
+        document.getElementById(
+            "formProjeto"
+        ).style.display = "block";
+
+        document.getElementById(
+            "mensagemProjeto"
+        ).innerText = "";
+
+
+        /*
+            Carrega os desenvolvedores
+            cadastrados na API.
+        */
+
+        await carregarPerfis();
+
+
+        /*
+            Carrega as tecnologias.
+        */
+
+        await carregarTecnologias();
+
+
+        document.getElementById(
+            "formProjeto"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+
+    function fecharFormulario() {
+
+        document.getElementById(
+            "formProjeto"
+        ).style.display = "none";
+    }
+
+
+    /* ==========================================
+       CARREGAR DESENVOLVEDORES
+    =========================================== */
+
+    async function carregarPerfis() {
+
+        const select =
+            document.getElementById(
+                "profileId"
+            );
+
+
+        /*
+            Guarda o valor selecionado
+            antes de atualizar a lista.
+        */
+
+        const valorAtual =
+            select.value;
+
+
+        select.innerHTML = `
+            <option value="">
+                Carregando desenvolvedores...
+            </option>
+        `;
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/profiles`
+                );
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    "Não foi possível carregar os desenvolvedores."
+                );
+            }
+
+
+            const perfis =
+                await resposta.json();
+
+
+            perfisCache =
+                Array.isArray(perfis)
+                    ? perfis
+                    : [];
+
+
+            select.innerHTML = `
+                <option value="">
+                    Selecione o desenvolvedor...
+                </option>
+            `;
+
+
+            if (!perfisCache.length) {
+
+                select.innerHTML = `
+                    <option value="">
+                        Nenhum desenvolvedor cadastrado
+                    </option>
+                `;
+
+                return;
+            }
+
+
+            perfisCache.forEach(
+                perfil => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        perfil.id;
+
+                    option.textContent =
+                        perfil.name;
+
+                    select.appendChild(
+                        option
+                    );
+                }
+            );
+
+
+            /*
+                Se já havia um desenvolvedor
+                selecionado, tenta mantê-lo.
+            */
+
+            if (valorAtual) {
+
+                const existe =
+                    perfisCache.some(
+                        perfil =>
+                            String(perfil.id) ===
+                            String(valorAtual)
+                    );
+
+                if (existe) {
+
+                    select.value =
+                        valorAtual;
+                }
+            }
+
+        }
+
+        catch (erro) {
+
+            console.error(erro);
+
+            select.innerHTML = `
+                <option value="">
+                    Erro ao carregar desenvolvedores
+                </option>
+            `;
+        }
+    }
+
+
+    /* ==========================================
+       CARREGAR TECNOLOGIAS
+    =========================================== */
+
+    async function carregarTecnologias() {
+
+        const caixa =
+            document.getElementById(
+                "listaTecnologias"
+            );
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/technologies`
+                );
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    "Não foi possível carregar as tecnologias."
+                );
+            }
+
+
+            const tecnologias =
+                await resposta.json();
+
+
+            caixa.innerHTML = "";
+
+
+            if (!tecnologias.length) {
+
+                caixa.innerHTML =
+                    "Nenhuma tecnologia cadastrada.";
+
+                return;
+            }
+
+
+            tecnologias.forEach(
+                tecnologia => {
+
+                    const label =
+                        document.createElement(
+                            "label"
+                        );
+
+                    label.className =
+                        "tecnologia-check";
+
+
+                    const checkbox =
+                        document.createElement(
+                            "input"
+                        );
+
+                    checkbox.type =
+                        "checkbox";
+
+                    checkbox.className =
+                        "checkTecnologia";
+
+                    checkbox.value =
+                        tecnologia.id;
+
+
+                    label.appendChild(
+                        checkbox
+                    );
+
+
+                    label.appendChild(
+                        document.createTextNode(
+                            " " +
+                            tecnologia.name
+                        )
+                    );
+
+
+                    caixa.appendChild(
+                        label
+                    );
+                }
+            );
+
+        }
+
+        catch (erro) {
+
+            caixa.innerHTML =
+                "Erro ao carregar tecnologias.";
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       CADASTRAR PROJETO
+    =========================================== */
+
+    async function cadastrarProjeto() {
+
+        const titulo =
+            document.getElementById(
+                "tituloProjeto"
+            ).value.trim();
+
+        const descricao =
+            document.getElementById(
+                "descricaoProjeto"
+            ).value.trim();
+
+        const github =
+            document.getElementById(
+                "githubProjeto"
+            ).value.trim();
+
+        const profileId =
+            Number(
+                document.getElementById(
+                    "profileId"
+                ).value
+            );
+
+        const mensagem =
+            document.getElementById(
+                "mensagemProjeto"
+            );
+
+
+        if (!titulo) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "Informe o título do projeto.";
+
+            return;
+        }
+
+
+        if (!profileId) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "Selecione o desenvolvedor.";
+
+            return;
+        }
+
+
+        const selecionadas =
+            document.querySelectorAll(
+                ".checkTecnologia:checked"
+            );
+
+
+        const technologyIds =
+            Array.from(
+                selecionadas
+            ).map(
+                item =>
+                    Number(item.value)
+            );
+
+
+        const dados = {
+
+            title: titulo,
+
+            description:
+                descricao || null,
+
+            repository_url:
+                github || null,
+
+            profile_id:
+                profileId,
+
+            technology_ids:
+                technologyIds
+        };
+
+
+        try {
+
+            mensagem.style.color =
+                "#374151";
+
+            mensagem.innerText =
+                "Cadastrando projeto...";
+
+
+            const resposta =
+                await fetch(
+                    `${API}/api/projects`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                dados
+                            )
+                    }
+                );
+
+
+            if (!resposta.ok) {
+
+                let mensagemErro =
+                    "Erro ao cadastrar projeto.";
+
+                try {
+
+                    const erro =
+                        await resposta.json();
+
+                    if (
+                        typeof erro.detail ===
+                        "string"
+                    ) {
+
+                        mensagemErro =
+                            erro.detail;
+                    }
+
+                } catch (_) {}
+
+
+                throw new Error(
+                    mensagemErro
+                );
+            }
+
+
+            mensagem.style.color =
+                "#16a34a";
+
+            mensagem.innerText =
+                "✅ Projeto cadastrado com sucesso!";
+
+
+            document.getElementById(
+                "tituloProjeto"
+            ).value = "";
+
+            document.getElementById(
+                "descricaoProjeto"
+            ).value = "";
+
+            document.getElementById(
+                "githubProjeto"
+            ).value = "";
+
+
+            document.querySelectorAll(
+                ".checkTecnologia"
+            ).forEach(
+                item =>
+                    item.checked = false
+            );
+
+
+            await carregarProjetos();
+
+        }
+
+        catch (erro) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "❌ " + erro.message;
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       CARREGAR PROJETOS
+    =========================================== */
+
+    async function carregarProjetos() {
+
+        try {
+
+            /*
+                Atualiza também os perfis
+                para conseguirmos mostrar
+                o nome do desenvolvedor
+                no card.
+            */
+
+            await atualizarCachePerfis();
+
+
+            const resposta =
+                await fetch(
+                    `${API}/api/projects?pagina=1&limite=100`
+                );
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    "Erro ao carregar projetos."
+                );
+            }
+
+
+            projetosAtuais =
+                await resposta.json();
+
+
+            document.getElementById(
+                "tituloSecao"
+            ).innerHTML =
+                "Projetos";
+
+
+            await mostrarProjetos(
+                projetosAtuais
+            );
+
+        }
+
+        catch (erro) {
+
+            document.getElementById(
+                "listaProjetos"
+            ).innerHTML = `
+                <p>
+                    Erro ao carregar projetos.
+                </p>
+            `;
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       ATUALIZAR CACHE DE PERFIS
+    =========================================== */
+
+    async function atualizarCachePerfis() {
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/profiles`
+                );
+
+
+            if (!resposta.ok) {
+                return;
+            }
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (Array.isArray(dados)) {
+
+                perfisCache =
+                    dados;
+            }
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                "Erro ao carregar perfis:",
+                erro
+            );
+        }
+    }
+
+
+    /* ==========================================
+       DESCOBRIR DESENVOLVEDOR
+    =========================================== */
+
+    function obterPerfilProjeto(
+        projeto
+    ) {
+
+        /*
+            Se a API já retornar um objeto
+            profile dentro do projeto.
+        */
+
+        if (
+            projeto.profile &&
+            projeto.profile.name
+        ) {
+
+            return projeto.profile;
+        }
+
+
+        /*
+            Caso o schema retorne apenas
+            profile_id.
+        */
+
+        const profileId =
+            projeto.profile_id;
+
+
+        if (!profileId) {
+            return null;
+        }
+
+
+        return (
+            perfisCache.find(
+                perfil =>
+                    Number(perfil.id) ===
+                    Number(profileId)
+            ) || null
+        );
+    }
+
+
+    /* ==========================================
+       MOSTRAR PROJETOS
+    =========================================== */
+
+    async function mostrarProjetos(
+        projetos,
+        ranking = false
+    ) {
+
+        const lista =
+            document.getElementById(
+                "listaProjetos"
+            );
+
+
+        lista.innerHTML = "";
+
+
+        if (!projetos.length) {
+
+            lista.innerHTML = `
+                <p>
+                    Nenhum projeto encontrado.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        for (
+            let indice = 0;
+            indice < projetos.length;
+            indice++
+        ) {
+
+            const projeto =
+                projetos[indice];
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "card";
+
+
+            /* TECNOLOGIAS */
+
+            let tecnologias = "";
+
+
+            if (
+                Array.isArray(
+                    projeto.technologies
+                )
+            ) {
+
+                tecnologias =
+                    projeto.technologies
+                        .map(
+                            tecnologia => `
+                                <span class="tag">
+                                    ${escaparHTML(
+                                        tecnologia.name
+                                    )}
+                                </span>
+                            `
+                        )
+                        .join("");
+            }
+
+
+            /* DESENVOLVEDOR */
+
+            const perfil =
+                obterPerfilProjeto(
+                    projeto
+                );
+
+
+            let desenvolvedorHTML = "";
+
+
+            if (perfil) {
+
+                desenvolvedorHTML = `
+
+                    <div class="desenvolvedor">
+
+                        <div>
+                            <strong>
+                                👤 Desenvolvedor:
+                            </strong>
+
+                            ${escaparHTML(
+                                perfil.name
+                            )}
+                        </div>
+
+                        ${
+                            perfil.bio
+
+                            ? `
+                                <div
+                                    style="
+                                        margin-top:8px;
+                                        color:#4b5563;
+                                    "
+                                >
+                                    ${escaparHTML(
+                                        perfil.bio
+                                    )}
+                                </div>
+                            `
+
+                            : ""
+                        }
+
+                    </div>
+                `;
+            }
+
+
+            /* VOTO */
+
+            const jaVotou =
+                localStorage.getItem(
+                    `devshowcase_voto_${projeto.id}`
+                );
+
+
+            let botaoVoto = "";
+
+
+            if (jaVotou) {
+
+                botaoVoto = `
+                    <button
+                        class="btn-votado"
+                        disabled
+                    >
+                        ✅ Voto registrado
+                    </button>
+                `;
+
+            } else {
+
+                botaoVoto = `
+                    <button
+                        class="btn-votar"
+                        onclick="votar(${projeto.id})"
+                    >
+                        👍 Votar
+                    </button>
+                `;
+            }
+
+
+            /* GITHUB */
+
+            let github = "";
+
+
+            if (projeto.repository_url) {
+
+                github = `
+                    <a
+                        class="btn-github"
+                        href="${escaparAtributo(
+                            projeto.repository_url
+                        )}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GitHub
+                    </a>
+                `;
+            }
+
+
+            /* RANKING */
+
+            let posicao = "";
+
+
+            if (ranking) {
+
+                posicao = `
+                    <div class="posicao">
+                        🏆 ${indice + 1}º lugar
+                    </div>
+                `;
+            }
+
+
+            card.innerHTML = `
+
+                ${posicao}
+
+                <h3>
+                    ${escaparHTML(
+                        projeto.title
+                    )}
+                </h3>
+
+
+                <div class="descricao">
+
+                    ${escaparHTML(
+                        projeto.description ||
+                        ""
+                    )}
+
+                </div>
+
+
+                ${desenvolvedorHTML}
+
+
+                <div class="tags">
+                    ${tecnologias}
+                </div>
+
+
+                <div class="votos">
+
+                    👍 ${projeto.upvotes || 0}
+                    voto(s)
+
+                </div>
+
+
+                <div class="acoes">
+
+                    ${botaoVoto}
+
+                    ${github}
+
+                </div>
+
+
+                <div class="avaliacao-area">
+
+                    <h4>
+                        ⭐ Avaliar projeto
+                    </h4>
+
+
+                    <div
+                        class="estrelas"
+                        id="estrelas-${projeto.id}"
+                    >
+
+                        ${criarEstrelas(
+                            projeto.id
+                        )}
+
+                    </div>
+
+
+                    <textarea
+                        id="comentario-${projeto.id}"
+                        placeholder="Escreva um comentário sobre este projeto..."
+                    ></textarea>
+
+
+                    <button
+                        class="btn-avaliar"
+                        onclick="enviarAvaliacao(${projeto.id})"
+                    >
+                        💬 Enviar avaliação
+                    </button>
+
+
+                    <div
+                        class="mensagem-avaliacao"
+                        id="mensagem-avaliacao-${projeto.id}"
+                    ></div>
+
+                </div>
+
+
+                <div
+                    class="avaliacoes-recebidas"
+                    id="avaliacoes-${projeto.id}"
+                >
+
+                    <h4>
+                        📊 Avaliações recebidas
+                    </h4>
+
+                    <div>
+                        Carregando avaliações...
+                    </div>
+
+                </div>
+            `;
+
+
+            lista.appendChild(
+                card
+            );
+
+
+            carregarAvaliacoes(
+                projeto.id
+            );
+        }
+    }
+
+
+    /* ==========================================
+       CRIAR ESTRELAS
+    =========================================== */
+
+    function criarEstrelas(
+        projetoId
+    ) {
+
+        let html = "";
+
+
+        for (
+            let nota = 1;
+            nota <= 5;
+            nota++
+        ) {
+
+            html += `
+                <span
+                    class="estrela"
+                    data-nota="${nota}"
+                    onclick="
+                        selecionarNota(
+                            ${projetoId},
+                            ${nota}
+                        )
+                    "
+                >
+                    ★
+                </span>
+            `;
+        }
+
+
+        return html;
+    }
+
+
+    /* ==========================================
+       SELECIONAR NOTA
+    =========================================== */
+
+    function selecionarNota(
+        projetoId,
+        nota
+    ) {
+
+        notasSelecionadas[
+            projetoId
+        ] = nota;
+
+
+        const estrelas =
+            document.querySelectorAll(
+                `#estrelas-${projetoId} .estrela`
+            );
+
+
+        estrelas.forEach(
+            estrela => {
+
+                const valor =
+                    Number(
+                        estrela.dataset.nota
+                    );
+
+
+                if (valor <= nota) {
+
+                    estrela.classList.add(
+                        "ativa"
+                    );
+
+                } else {
+
+                    estrela.classList.remove(
+                        "ativa"
+                    );
+                }
+            }
+        );
+    }
+
+
+    /* ==========================================
+       ENVIAR AVALIAÇÃO
+    =========================================== */
+
+    async function enviarAvaliacao(
+        projetoId
+    ) {
+
+        const nota =
+            notasSelecionadas[
+                projetoId
+            ];
+
+
+        const comentario =
+            document.getElementById(
+                `comentario-${projetoId}`
+            ).value.trim();
+
+
+        const mensagem =
+            document.getElementById(
+                `mensagem-avaliacao-${projetoId}`
+            );
+
+
+        if (!nota) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "Selecione de 1 a 5 estrelas.";
+
+            return;
+        }
+
+
+        const dados = {
+
+            rating: nota,
+
+            comment:
+                comentario || ""
+        };
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/projects/${projetoId}/feedbacks`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                dados
+                            )
+                    }
+                );
+
+
+            if (!resposta.ok) {
+
+                let mensagemErro =
+                    "Erro ao enviar avaliação.";
+
+                try {
+
+                    const erro =
+                        await resposta.json();
+
+                    if (
+                        typeof erro.detail ===
+                        "string"
+                    ) {
+
+                        mensagemErro =
+                            erro.detail;
+                    }
+
+                } catch (_) {}
+
+
+                throw new Error(
+                    mensagemErro
+                );
+            }
+
+
+            mensagem.style.color =
+                "#16a34a";
+
+            mensagem.innerText =
+                "✅ Avaliação enviada com sucesso!";
+
+
+            document.getElementById(
+                `comentario-${projetoId}`
+            ).value = "";
+
+
+            notasSelecionadas[
+                projetoId
+            ] = 0;
+
+
+            document.querySelectorAll(
+                `#estrelas-${projetoId} .estrela`
+            ).forEach(
+                estrela =>
+                    estrela.classList.remove(
+                        "ativa"
+                    )
+            );
+
+
+            await carregarAvaliacoes(
+                projetoId
+            );
+
+        }
+
+        catch (erro) {
+
+            mensagem.style.color =
+                "#dc2626";
+
+            mensagem.innerText =
+                "❌ " + erro.message;
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       CARREGAR AVALIAÇÕES
+    =========================================== */
+
+    async function carregarAvaliacoes(
+        projetoId
+    ) {
+
+        const caixa =
+            document.getElementById(
+                `avaliacoes-${projetoId}`
+            );
+
+
+        if (!caixa) {
+            return;
+        }
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/projects/${projetoId}/feedbacks`
+                );
+
+
+            if (!resposta.ok) {
+
+                caixa.innerHTML = `
+
+                    <h4>
+                        📊 Avaliações recebidas
+                    </h4>
+
+                    <p>
+                        Nenhuma avaliação disponível.
+                    </p>
+                `;
+
+                return;
+            }
+
+
+            const avaliacoes =
+                await resposta.json();
+
+
+            if (!avaliacoes.length) {
+
+                caixa.innerHTML = `
+
+                    <h4>
+                        📊 Avaliações recebidas
+                    </h4>
+
+                    <p>
+                        Ainda não há avaliações.
+                    </p>
+                `;
+
+                return;
+            }
+
+
+            const soma =
+                avaliacoes.reduce(
+                    (total, item) =>
+                        total +
+                        Number(item.rating),
+                    0
+                );
+
+
+            const media =
+                soma /
+                avaliacoes.length;
+
+
+            let itens = "";
+
+
+            avaliacoes.forEach(
+                avaliacao => {
+
+                    const nota =
+                        Number(
+                            avaliacao.rating
+                        );
+
+
+                    itens += `
+
+                        <div class="avaliacao-item">
+
+                            <div class="nota-avaliacao">
+
+                                ${"★".repeat(
+                                    nota
+                                )}
+
+                                ${"☆".repeat(
+                                    5 - nota
+                                )}
+
+                                ${nota}/5
+
+                            </div>
+
+
+                            ${
+                                avaliacao.comment
+
+                                ? `
+                                    <div class="comentario">
+
+                                        💬
+                                        ${escaparHTML(
+                                            avaliacao.comment
+                                        )}
+
+                                    </div>
+                                `
+
+                                : `
+                                    <div class="comentario">
+                                        Sem comentário.
+                                    </div>
+                                `
+                            }
+
+                        </div>
+                    `;
+                }
+            );
+
+
+            caixa.innerHTML = `
+
+                <h4>
+                    📊 Avaliações recebidas
+                </h4>
+
+
+                <div class="resumo-avaliacao">
+
+                    <div class="media-estrelas">
+
+                        ${estrelasMedia(
+                            media
+                        )}
+
+                        ${media.toFixed(1)}
+                        / 5
+
+                    </div>
+
+
+                    <div>
+
+                        ${avaliacoes.length}
+
+                        ${
+                            avaliacoes.length === 1
+
+                            ? "avaliação"
+
+                            : "avaliações"
+                        }
+
+                    </div>
+
+                </div>
+
+
+                ${itens}
+            `;
+
+        }
+
+        catch (erro) {
+
+            caixa.innerHTML = `
+
+                <h4>
+                    📊 Avaliações recebidas
+                </h4>
+
+                <p>
+                    Não foi possível carregar
+                    as avaliações.
+                </p>
+            `;
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       ESTRELAS DA MÉDIA
+    =========================================== */
+
+    function estrelasMedia(
+        media
+    ) {
+
+        const quantidade =
+            Math.round(
+                media
+            );
+
+
+        return (
+            "★".repeat(
+                quantidade
+            ) +
+
+            "☆".repeat(
+                5 - quantidade
+            )
+        );
+    }
+
+
+    /* ==========================================
+       VOTAR
+    =========================================== */
+
+    async function votar(
+        projetoId
+    ) {
+
+        const chave =
+            `devshowcase_voto_${projetoId}`;
+
+
+        if (
+            localStorage.getItem(
+                chave
+            )
+        ) {
+
+            alert(
+                "Você já votou neste projeto."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API}/api/projects/${projetoId}/upvote`,
+                    {
+                        method: "PUT"
+                    }
+                );
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    "Erro ao registrar voto."
+                );
+            }
+
+
+            localStorage.setItem(
+                chave,
+                "1"
+            );
+
+
+            await carregarProjetos();
+
+        }
+
+        catch (erro) {
+
+            alert(
+                erro.message
+            );
+
+            console.error(erro);
+        }
+    }
+
+
+    /* ==========================================
+       BUSCAR PROJETOS
+    =========================================== */
+
+    function buscarProjetos() {
+
+        const termo =
+            document.getElementById(
+                "pesquisa"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        if (!termo) {
+
+            document.getElementById(
+                "tituloSecao"
+            ).innerHTML =
+                "Projetos";
+
+
+            mostrarProjetos(
+                projetosAtuais
+            );
+
+            return;
+        }
+
+
+        const filtrados =
+            projetosAtuais.filter(
+                projeto => {
+
+                    const titulo =
+                        (
+                            projeto.title ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const descricao =
+                        (
+                            projeto.description ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const tecnologias =
+                        (
+                            projeto.technologies ||
+                            []
+                        )
+                        .map(
+                            item =>
+                                item.name
+                        )
+                        .join(" ")
+                        .toLowerCase();
+
+
+                    const perfil =
+                        obterPerfilProjeto(
+                            projeto
+                        );
+
+
+                    const desenvolvedor =
+                        perfil
+                            ? (
+                                perfil.name ||
+                                ""
+                            ).toLowerCase()
+                            : "";
+
+
+                    return (
+
+                        titulo.includes(
+                            termo
+                        ) ||
+
+                        descricao.includes(
+                            termo
+                        ) ||
+
+                        tecnologias.includes(
+                            termo
+                        ) ||
+
+                        desenvolvedor.includes(
+                            termo
+                        )
+                    );
+                }
+            );
+
+
+        document.getElementById(
+            "tituloSecao"
+        ).innerHTML =
+            "🔎 Resultado da busca";
+
+
+        mostrarProjetos(
+            filtrados
+        );
+    }
+
+
+    /* ==========================================
+       RANKING
+    =========================================== */
+
+    function mostrarRanking() {
+
+        const ranking =
+            [...projetosAtuais]
+            .sort(
+                (a, b) =>
+                    (b.upvotes || 0) -
+                    (a.upvotes || 0)
+            );
+
+
+        document.getElementById(
+            "tituloSecao"
+        ).innerHTML =
+            "🏆 Ranking de Projetos";
+
+
+        mostrarProjetos(
+            ranking,
+            true
+        );
+
+
+        document.getElementById(
+            "tituloSecao"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+
+    /* ==========================================
+       ESCAPAR HTML
+    =========================================== */
+
+    function escaparHTML(
+        texto
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            texto == null
+                ? ""
+                : String(texto);
+
+
+        return div.innerHTML;
+    }
+
+
+    function escaparAtributo(
+        texto
+    ) {
+
+        return escaparHTML(
+            texto
+        );
+    }
+
+
+    /* ==========================================
+       ENTER NA PESQUISA
+    =========================================== */
+
+    document.getElementById(
+        "pesquisa"
+    ).addEventListener(
+        "keydown",
+        function(evento) {
+
+            if (
+                evento.key === "Enter"
+            ) {
+
+                buscarProjetos();
+            }
+        }
+    );
+
+
+    /* ==========================================
+       INICIAR SISTEMA
+    =========================================== */
+
+    carregarProjetos();
+
+</script>
+
+</body>
+
+</html>
