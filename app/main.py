@@ -682,10 +682,6 @@ def dar_upvote(
 # FRONT-END
 # ==========================================
 
-@app.get(
-    "/site",
-    include_in_schema=False
-)
 
 
 # ==========================================
@@ -781,6 +777,7 @@ def excluir_projeto(
     }
 
 
+@app.get("/site", include_in_schema=False)
 def abrir_site():
 
     return FileResponse(
