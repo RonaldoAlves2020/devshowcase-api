@@ -94,4 +94,4 @@ class FeedbackResponse(BaseModel):
     project_id: int
 
     class Config:
-        from_attributes = True
+        from_attributes = True   
